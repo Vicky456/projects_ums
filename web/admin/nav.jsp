@@ -5,7 +5,7 @@
               <small class="text-muted">Main</small>
             </li>
             <li>
-              <a href="">
+                <a href="index.jsp">
                   <span class="nav-icon"><i class="material-icons">dashboard</i></span>
                 <span class="nav-text">Dashboard</span>
               </a>
