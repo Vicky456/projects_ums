@@ -13,8 +13,18 @@
    
    <script>
     $('.nav_exp').click(function (){
+         let ck=false;
+        if($(this).hasClass("active")){
+            ck=true;
+        }
         
-        $(this).toggleClass("active");
+        $(this).addClass("_act");
+       $('.nav_exp').removeClass("active");
+       
+       if(!ck)
+       $("._act").addClass("active").removeClass("_act");
+        else
+        $("._act").removeClass("active").removeClass("_act");
     });
    </script>
        

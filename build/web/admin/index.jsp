@@ -80,7 +80,7 @@ try{
                      
                  </div>
                  <div class="box-body">
-                     <table class="table m-b-none default" >
+                     <table class="table table-responsive  m-b-none default " >
                             <thead>
                               <tr>
                                   <th >
@@ -147,7 +147,7 @@ try{
                      
                  </div>
                  <div class="box-body">
-                     <table class="table m-b-none default" >
+                     <table class="table table-responsive  m-b-none default" >
                             <thead>
                               <tr>
                                   <th >
@@ -198,7 +198,7 @@ try{
                                     <th>
                                          Staffs is <%= cou%>
                                     </th>
-                                    <th>
+                                    <th colspan="2">
                                          Departments is <%= cou_d%>
                                     </th>
                                 </tr>
@@ -211,7 +211,7 @@ try{
                                     <div class="col-md-5 ">
                  
                  <div class="box">
-                     <table class="table m-b-none default" >
+                     <table class="table table-responsive  m-b-none default" >
                             <thead>
                               <tr>
                                   <th >
@@ -264,14 +264,14 @@ try{
                             
                             
                             <div class="row">
-                                <div class="col-md-5 ">
+                                <div class="col-md-7 ">
                                      <div class="box-header">
                      <h5>Subjects studied by a first year students  </h5>
                      
                  </div>
                  
                  <div class="box">
-                     <table class="table m-b-none default" >
+                     <table class="table table-responsive  m-b-none default" >
                             <thead>
                               <tr>
                                   <th >
@@ -279,6 +279,9 @@ try{
                                   </th>
                                   <th>
                                       subject
+                                  </th>
+                                  <th>
+                                      sem
                                   </th>
                                   
                                 
@@ -290,7 +293,7 @@ try{
                                 <%
                                     
                                      stmt=con.createStatement();  
-                                    rs=stmt.executeQuery("select d.alname,c.name from course c join dept d on c.dept_code=d.dept_code where c.sem=1 or c.sem=2;");  
+                                    rs=stmt.executeQuery("select d.alname,c.name,c.sem from course c join dept d on c.dept_code=d.dept_code where c.sem=1 or c.sem=2;");  
                 
                  
                 
@@ -301,6 +304,7 @@ try{
                                        <tr>
                                            <td><%= rs.getString(1)%></td>
                                            <td><%= rs.getString(2)%></td>
+                                           <td><%= rs.getString(3)%></td>
                                            
                                            
                                        </tr>
@@ -317,14 +321,14 @@ try{
                  
              </div> 
                             
-                            <div class="col-md-4 ">
+                            <div class="col-md-5 ">
                                      <div class="box-header">
                      <h5>Teachers handling more than 4 subjects  </h5>
                      
                  </div>
                  
                  <div class="box">
-                     <table class="table m-b-none default" >
+                     <table class="table table-responsive  m-b-none default" >
                             <thead>
                               <tr>
                                   <th >
@@ -375,13 +379,13 @@ try{
                             
                             <div class="row">
                                 <div class="col-md-12 ">
-                                     <div class="box-header">
+                                     <div>
                                          <h5 style="text-align: center">Top students in each class and Departments topper  </h5>
                      
-                 </div>
+                                </div>
                  
                  <div class="box">
-                     <table class="table m-b-none default" >
+                     <table class="table table-responsive  table-sm " >
                             <thead>
                               <tr>
                                   <th >
@@ -467,7 +471,7 @@ try{
                  </div>
                  
                  <div class="box">
-                     <table class="table m-b-none default" >
+                     <table class="table table-responsive  m-b-none default" >
                             <thead>
                               <tr>
                                   <th>
@@ -528,7 +532,287 @@ try{
                  </div>
                  
              </div>
+                            
+                            <div class="col-md-5 offset-md-1">
+                                     <div class="box-header">
+                                         <h5 style="text-align: center">How much fees for a particular semester</h5>
+                     
+                 </div>
+                 
+                 <div class="box">
+                     <table class="table table-responsive  m-b-none default" >
+                            <thead>
+                              <tr>
+                                  
+                                  
+                                  <th>
+                                      Department
+                                  </th>
+                                 
+                                  <th>
+                                      Sem
+                                  </th>
+                                  
+                                  <th>
+                                      Amount
+                                  </th>
+
+                                      
+                                  
+                                
+                                  
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <%
+                                    
+                                     stmt=con.createStatement();  
+                                    rs=stmt.executeQuery(" select d.name,c.sem,sum(c.amount) from course c,dept d group by c.sem,d.dept_code order by d.name;");  
+                
+                 
+                
+                                    while(rs.next())
+                                    {
+                                        
+                                       %>
+                                       
+                                       <tr>
+                                           <td><%= rs.getString(1)%></td>
+                                           <td><%= rs.getString(2)%></td>
+                                           <td><%= rs.getString(3)%></td>
+                                           
+                                           
+                                           
+                                           
+                                       </tr>
+                                       
+                                       <%
+                                           
+                                    
+                                    }
+                                    
+                                    %>
+                            </tbody>
+                            
+                     </table>
+                 </div>
+                 
+             </div>
                             </div>
+                            
+                             <div class="row">
+                                <div class="col-md-5 ">
+                                     <div class="box-header">
+                                         <h5 style="text-align: center"> Most paid teacher 10 </h5>
+                     
+                 </div>
+                 
+                 <div class="box">
+                     <table class="table table-responsive  m-b-none default" >
+                            <thead>
+                              <tr>
+                                  <th>
+                                      ID
+                                  </th>
+                                   <th>
+                                      Name
+                                  </th>
+                                  <th>
+                                      Department
+                                  </th>
+                                 
+                                  <th>
+                                      Salary
+                                  </th>
+
+                                      
+                                  
+                                
+                                  
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <%
+                                    
+                                     stmt=con.createStatement();  
+                                    rs=stmt.executeQuery("select s.id,s.name,d.name,s.sal from staff s,dept d where s.dept_code=d.dept_code order by s.sal limit 10;");  
+                
+                 
+                
+                                    while(rs.next())
+                                    {
+                                        
+                                       %>
+                                       
+                                       <tr>
+                                           <td><%= rs.getString(1)%></td>
+                                           <td><%= rs.getString(2)%></td>
+                                           <td><%= rs.getString(3)%></td>
+                                           <td><%= rs.getString(4)%></td>
+                                           
+                                           
+                                           
+                                       </tr>
+                                       
+                                       <%
+                                           
+                                    
+                                    }
+                                    
+                                    %>
+                            </tbody>
+                            
+                     </table>
+                 </div>
+                 
+             </div>
+                            
+                            <div class="col-md-5 offset-md-1">
+                                     <div class="box-header">
+                                         <h5 style="text-align: center"> Avg score in each subject handled by teachers. To rank teachers </h5>
+                     
+                 </div>
+                 
+                 <div class="box">
+                     <table class="table table-responsive  m-b-none default" >
+                            <thead>
+                              <tr>
+                                  
+                                   <th>
+                                      Staff Name
+                                  </th>
+                                  <th>
+                                      Department
+                                  </th>
+                                 
+                                  <th>
+                                      Avg mark
+                                  </th>
+
+                                      
+                                  
+                                
+                                  
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <%
+                                    
+                                     stmt=con.createStatement();  
+                                    rs=stmt.executeQuery("select s.name,c.name,avg(r.mark) from staff_assign sa,result r,course c,staff s where sa.course_code=r.course_code and r.course_code=c.course_code and sa.staff_id=s.id group by r.course_code order by s.name;");  
+                
+                 
+                
+                                    while(rs.next())
+                                    {
+                                        
+                                       %>
+                                       
+                                       <tr>
+                                           <td><%= rs.getString(1)%></td>
+                                           <td><%= rs.getString(2)%></td>
+                                           <td><%= rs.getString(3)%></td>
+                                           
+                                           
+                                           
+                                           
+                                       </tr>
+                                       
+                                       <%
+                                           
+                                    
+                                    }
+                                    
+                                    %>
+                            </tbody>
+                            
+                     </table>
+                 </div>
+                 
+             </div>
+                             </div>
+                            
+                            <div class="row">
+                                
+                            
+                            <div class="col-md-10 offset-md-1">
+                                     <div class="box-header">
+                                         <h5 style="text-align: center"> Teachers who handle more than 30 students in a class</h5>
+                     
+                 </div>
+                 
+                 <div class="box">
+                     <table class="table table-responsive  m-b-none default" >
+                            <thead>
+                              <tr>
+                                  <th>
+                                      Staff id
+                                  </th>
+                                   <th>
+                                      Staff Name
+                                  </th>
+                                  <th>
+                                      Course code
+                                  </th>
+                                  <th>
+                                      Course name
+                                  </th>
+                                  <th>
+                                      Department
+                                  </th>
+                                  <th>
+                                      count
+                                  </th>
+
+                                      
+                                  
+                                
+                                  
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <%
+                                    
+                                     stmt=con.createStatement();  
+                                    rs=stmt.executeQuery("select sa.staff_id,sf.name,sa.course_code,c.name,d.name,count(s.id) from staff_assign sa,course c,dept d,student s,staff sf where sa.course_code=c.course_code and c.dept_code=d.dept_code and s.dept_code=c.dept_code and sf.id=sa.staff_id group by sa.course_code,c.name having count(s.id)>3;");  
+                
+                 
+                
+                                    while(rs.next())
+                                    {
+                                        
+                                       %>
+                                       
+                                       <tr>
+                                           <td><%= rs.getString(1)%></td>
+                                           <td><%= rs.getString(2)%></td>
+                                           <td><%= rs.getString(3)%></td>
+                                           <td><%= rs.getString(4)%></td>
+                                           <td><%= rs.getString(5)%></td>
+                                           <td><%= rs.getString(6)%></td>
+                                           
+                                           
+                                           
+                                           
+                                       </tr>
+                                       
+                                       <%
+                                           
+                                    
+                                    }
+                                    
+                                    %>
+                            </tbody>
+                            
+                     </table>
+                 </div>
+                 
+             </div>
+                             </div>
 
  </div>
 <%

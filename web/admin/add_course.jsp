@@ -1,5 +1,9 @@
 
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <jsp:include page="header.jsp"></jsp:include>
  <div ui-view="" class="app-body" id="view">
 
@@ -23,31 +27,78 @@
           </div>
           <div class="box-body">
             <p class="text-muted">Please fill the information to continue</p>
-            <div class="form-group">
-              <label>Name of course</label>
-              <input type="text" class="form-control" required="" name="name">                        
+            
+            <div class="row m-b">
+                <div class="col-sm-8">
+           
+                    <label>Name of course</label>
+                    <input type="text" class="form-control" required="" name="name">                        
+                </div>
+                <div class="col-sm-4">
+           
+                    <label>Credits</label>
+                    <input type="number" class="form-control" required="" name="credits">                        
+                </div>
             </div>
             
             <div class="row m-b">
-              <div class="col-sm-6">
-                <label>Subject Code</label>
-                <input type="text" class="form-control" disabled="" required="" name="code_sub"  value="CVS004">   
-              </div>
+             
               <div class="col-sm-3">
-                <label>Year</label>
-                <select class="form-control" name="year">
+                <label>sem</label>
+                <select class="form-control" name="sem">
                     <option></option>
-                    <option>2010</option>
+                    <option value="1">I</option>
+                    <option value="2">II</option>
+                    <option value="3">III</option>
+                    <option value="4">IV</option>
+                    <option value="5">V</option>
+                    <option value="6">VI</option>
+                    <option value="7">VII</option>
+                    <option value="8">VIII</option>
                 </select>      
               </div> 
               <div class="col-sm-3">
                 <label>Batch</label>
-                <input type="text" class="form-control" name="batch">      
+               <select class="form-control" name="batch">
+                    <option></option>
+                    
+                    <% for(int i=10;i<=20;i++){ %>
+                    <option value="<%= i+"-"+(i+4)%>"><%= i+"-"+(i+4)%></option>
+                    <% } %>
+                </select>   
+              </div>
+                <div class="col-sm-6">
+                <label>Department</label>
+               <select class="form-control" name="dept">
+                    <option></option>
+                    
+                    <%  try{  
+           
+                Class.forName("com.mysql.jdbc.Driver");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
+                Statement stmt=con.createStatement();  
+                ResultSet rs=stmt.executeQuery("select * from dept;");  
+                
+                 
+                
+                while(rs.next())
+                { %>
+                <option value="<%= rs.getString(1)%>"><%= rs.getString(2)%></option>
+                    <% }con.close();}catch(Exception e){out.println(e);}  %>
+                </select>   
               </div>
             </div>
             <div class="form-group">
               <label>Description</label>
               <textarea class="form-control" required="" name="desc_"></textarea>
+            </div>
+            <div class="row m-b">
+                <div class="col-sm-8">
+           
+                    <label>amount course</label>
+                    <input type="number" class="form-control" required="" name="amount">                        
+                </div>
+               
             </div>
             <div class="checkbox">
               <label class="ui-check">

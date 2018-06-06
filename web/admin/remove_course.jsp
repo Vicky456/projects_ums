@@ -25,7 +25,7 @@
     </div>
     
     <div>
-      <table class="table m-b-none default footable-loaded footable" ui-jp="footable" data-filter="#filter" data-page-size="5">
+      <table class="table   table-active col-sm-12" >
         <thead>
           <tr>
               <th data-toggle="true" class="footable-visible footable-first-column footable-sortable">
@@ -50,9 +50,9 @@
       try{  
            
                 Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
                 Statement stmt=con.createStatement();  
-                ResultSet rs=stmt.executeQuery("select * from course_tb");  
+                ResultSet rs=stmt.executeQuery("select * from course;");  
                 
                  
                 
@@ -61,10 +61,10 @@
                     %>
                      <tr >
                         
+                        <td ><%= rs.getString(1)%></td>
                         <td ><%= rs.getString(2)%></td>
                         <td ><%= rs.getString(3)%></td>
-                        <td ><%= rs.getString(4)%></td>
-                        <td ><%= rs.getString(5)%></td>
+                        <td ><%= rs.getString(6)%></td>
                         <td ><a class="label success" href="remove_course2.jsp?id=<%= rs.getString(1)%>" title="Active">Remove</a></td>
                         
                     </tr>

@@ -31,11 +31,11 @@
                 PreparedStatement preparedStatement;
                 String id=request.getParameter("id");
                 Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
                 
                 
                  
-              String sql = "DELETE FROM course_tb WHERE id=?;";
+              String sql = "DELETE FROM course WHERE course_code=?;";
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setInt(1, Integer.parseInt(id));
                 if(preparedStatement.executeUpdate()!=-1){

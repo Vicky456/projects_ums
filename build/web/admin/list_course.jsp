@@ -26,9 +26,9 @@
       try{  
            
                 Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
                 Statement stmt=con.createStatement();  
-                ResultSet rs=stmt.executeQuery("select * from course_tb");  
+                ResultSet rs=stmt.executeQuery("select c.*,d.name from course c,dept d where c.dept_code=d.dept_code");  
                 
                  
                 
@@ -38,15 +38,15 @@
                 
                 "<div class='box-body'>"+
                     "<samp style='float:  right;color: #ff00e7'>"+rs.getString(1)+"</samp>"+
-                    "<h3>"+rs.getString(2)+"</h3>"+
+                    "<h3 class='text-blue'>"+rs.getString(2)+"</h3>"+
                   
-                    "<h5>"+rs.getString(3)+"</h5>"+
-                    "<p>"+rs.getString(6)+"</p>"+
+                    "<h5>"+rs.getString(9)+"</h5>"+
+                    "<p>"+rs.getString(4)+"</p>"+
                 "</div>"+
                 
                 "<div class='box-footer' style='float:  right;'>"+
-                    "Year <a class='text-blue'>"+rs.getString(4)+"</a>"+
-                    " Batch <a class='text-blue'>"+rs.getString(5)+"</a>"+
+                    "sem <a class='text-blue'>"+rs.getString(5)+"</a>"+
+                    " Batch <a class='text-blue'>"+rs.getString(6)+"</a>"+
                 "</div>"+
             "</div></div>");
                 }

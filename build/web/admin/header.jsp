@@ -33,7 +33,7 @@
         <jsp:include page="nav.jsp"></jsp:include>
         
         
-        <jsp:include page="login_nav.jsp"></jsp:include>
+        <%--<jsp:include page="login_nav.jsp"></jsp:include>--%>
     </div>
   </div>
 
@@ -45,26 +45,25 @@
               <h4 class="m-b-0 _300" style="margin-top:  16px;">Welcome to Project UMS</h4>
            
           </div>
+          
         <!-- navbar right -->
         <ul class="nav navbar-nav pull-right">
-          <li class="nav-item dropdown pos-stc-xs">
-            <a class="nav-link" href="http://flatfull.com/themes/flatkit/html/dashboard.html" data-toggle="dropdown">
+          <!--<li class="nav-item dropdown pos-stc-xs">
+            <a class="nav-link" href="" data-toggle="dropdown">
               <i class="material-icons">notifications_none</i>
               <span class="label label-sm up warn">3</span>
             </a>
 
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link clear" href="" data-toggle="dropdown">
+          </li>-->
+          <li class="nav-item dropdown" onclick="$(this).toggleClass('open')">
+            <a class="nav-link clear" data-toggle="dropdown">
                         <span class="avatar w-32">
                         <img src="../asstes/a0.jpg" alt="...">
                         <i class="on b-white bottom"></i>
                         </span>
             </a>
             <div class="dropdown-menu pull-right dropdown-menu-scale">
-              <a class="dropdown-item" ui-sref="app.inbox.list"><span>Inbox</span> <span class="label warn m-l-xs">3</span></a> <a class="dropdown-item" ui-sref="app.page.profile"><span>Profile</span></a> <a class="dropdown-item" ui-sref="app.page.setting"><span>Settings</span> <span class="label primary m-l-xs">3/9</span></a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" ui-sref="app.docs">Need help?</a> <a class="dropdown-item" ui-sref="access.signin">Sign out</a>
+               <a class="dropdown-item" ui-sref="access.signin">Sign out</a>
             </div>
           </li>
           <li class="nav-item hidden-md-up">

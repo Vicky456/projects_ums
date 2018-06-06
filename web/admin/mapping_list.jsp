@@ -8,16 +8,7 @@
 <jsp:include page="header.jsp"></jsp:include>
  <div ui-view="" class="app-body" id="view">
 
-     
- <div class="p-a white lt box-shadow">
-      
       <div class="p-a white lt box-shadow">
-          <div class="col-sm-1">
-                <a class="nav-link" href="add_fact.jsp" >
-                    <i class="fa fa-fw fa-plus text-muted"></i>
-                    <span>New</span>
-                  </a>
-            </div>
         <div class="row">
           <div class="col-sm-6">
             <h4 class="m-b-0 _300">View Faculty Portal</h4>
@@ -43,7 +34,7 @@
                 Class.forName("com.mysql.jdbc.Driver");  
                 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
                 Statement stmt=con.createStatement();  
-                ResultSet rs=stmt.executeQuery("select s.*,d.name from staff s,dept d where d.dept_code=s.dept_code");  
+                ResultSet rs=stmt.executeQuery(" select s.id 'Staff id',s.name 'Staff name',c.name 'course name',d.name 'Department' from staff_assign sa,staff s,course c,dept d where sa.staff_id=s.id and sa.course_code=c.course_code and c.dept_code=d.dept_code;");  
                 
                  %>
         <thead>
@@ -53,7 +44,7 @@
               ResultSetMetaData md = rs.getMetaData();
                 for (int i=1; i<=md.getColumnCount(); i++)
                 {
-                    //out.println("<th>"+md.getColumnLabel(i)+"</th>");
+                    out.println("<th>"+md.getColumnLabel(i)+"</th>");
                 }
               %>
              
@@ -61,13 +52,7 @@
           </tr>
           <tr>
               
-              <th>id</th>
-<th>name</th>
-<th>Department's</th>
-<th>Email</th>
-<th>Address</th>
-<th>Gender</th>
-<th>sal</th>
+
 
              
              
@@ -85,15 +70,11 @@
                         
                         <td ><%= rs.getString(1)%></td>
                         <td ><%= rs.getString(2)%></td>
-                        <td ><%= rs.getString(8)%></td>
+                        <td ><%= rs.getString(3)%></td>
                         <td ><%= rs.getString(4)%></td>
-                        <td ><%= rs.getString(5)%></td>
-                        <td ><%= rs.getString(6)%></td>
-                        <td ><%= rs.getString(7)%></td>
+                      
                         
-                        <td ><a class="label success" href="add_fact.jsp?type=edit&id=<%= rs.getString(1)%>" title="Active">Edit</a></td>
-                        <td ><a class="label red" href="add_fact.jsp?type=del&id=<%= rs.getString(1)%>" title="Active">Remove</a></td>
-                    
+                        
                     </tr>
                     <%
                 }
@@ -121,4 +102,3 @@
 
  </div>
 <jsp:include page="fooder.jsp"></jsp:include>
-

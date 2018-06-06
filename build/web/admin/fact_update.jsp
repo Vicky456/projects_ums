@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -7,16 +8,19 @@
 <jsp:include page="header.jsp"></jsp:include>
  <div ui-view="" class="app-body" id="view">
 
+     
+ <div class="p-a white lt box-shadow">
+      
       <div class="p-a white lt box-shadow">
-        <div class="row">
-            <div class="col-sm-1">
+          <div class="col-sm-1">
                 <a class="nav-link" href="add_fact.jsp" >
                     <i class="fa fa-fw fa-plus text-muted"></i>
                     <span>New</span>
                   </a>
             </div>
+        <div class="row">
           <div class="col-sm-6">
-            <h4 class="m-b-0 _300">Faculty update Portal</h4>
+            <h4 class="m-b-0 _300">View Faculty Portal</h4>
            <!-- <small class="text-muted">university management system</small>-->
           </div>
 
@@ -26,54 +30,70 @@
 
    <div class="box">
     <div class="box-header">
-      <h2>Course edit</h2>
+      <h2>Faculty View</h2>
       
     </div>
     
     <div>
-      <table class="table m-b-none default footable-loaded footable" ui-jp="footable" data-filter="#filter" data-page-size="5">
+      <table class="table " ui-jp="footable" data-filter="#filter" data-page-size="5">
+           <%
+         
+      try{  
+           
+                Class.forName("com.mysql.jdbc.Driver");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
+                Statement stmt=con.createStatement();  
+                ResultSet rs=stmt.executeQuery("select s.*,d.name from staff s,dept d where d.dept_code=s.dept_code");  
+                
+                 %>
         <thead>
           <tr>
-              <th data-toggle="true" class="footable-visible footable-first-column footable-sortable">
-                  Course Name
-              <span class="footable-sort-indicator"></span></th>
-              <th class="footable-visible footable-sortable">
-                  Course code
-              <span class="footable-sort-indicator"></span></th>
-              <th data-hide="phone,tablet" class="footable-visible footable-sortable">
-                  Year
-              <span class="footable-sort-indicator"></span></th>
-              <th data-hide="phone,tablet" data-name="Date Of Birth" class="footable-visible footable-sortable">
-                  batch
-              <span class="footable-sort-indicator"></span></th>
+              
+              <%
+              ResultSetMetaData md = rs.getMetaData();
+                for (int i=1; i<=md.getColumnCount(); i++)
+                {
+                    //out.println("<th>"+md.getColumnLabel(i)+"</th>");
+                }
+              %>
+             
+             
+          </tr>
+          <tr>
+              
+              <th>id</th>
+<th>name</th>
+<th>Department's</th>
+<th>Email</th>
+<th>Address</th>
+<th>Gender</th>
+<th>sal</th>
+
+             
              
           </tr>
         </thead>
         <tbody>
             
+            
              <%
-         
-      try{  
-           
-                Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
-                Statement stmt=con.createStatement();  
-                ResultSet rs=stmt.executeQuery("select * from faculty_tb");  
-                
-                 
                 
                 while(rs.next())
                 {
                     %>
                      <tr >
                         
+                        <td ><%= rs.getString(1)%></td>
                         <td ><%= rs.getString(2)%></td>
-                        <td ><%= rs.getString(3)%></td>
+                        <td ><%= rs.getString(8)%></td>
                         <td ><%= rs.getString(4)%></td>
                         <td ><%= rs.getString(5)%></td>
+                        <td ><%= rs.getString(6)%></td>
+                        <td ><%= rs.getString(7)%></td>
                         
                         <td ><a class="label success" href="add_fact.jsp?type=edit&id=<%= rs.getString(1)%>" title="Active">Edit</a></td>
                         <td ><a class="label red" href="add_fact.jsp?type=del&id=<%= rs.getString(1)%>" title="Active">Remove</a></td>
+                    
                     </tr>
                     <%
                 }
@@ -101,3 +121,4 @@
 
  </div>
 <jsp:include page="fooder.jsp"></jsp:include>
+

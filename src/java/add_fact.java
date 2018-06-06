@@ -27,26 +27,35 @@ public class add_fact extends HttpServlet {
         PrintWriter out=resp.getWriter();
         
         String col1=req.getParameter("name");
-        String col2=req.getParameter("code_sub");
+        String col2=req.getParameter("gender");
         int col3=Integer.parseInt(req.getParameter("dept"));
         
         String col4=req.getParameter("email");
-        String col5=req.getParameter("phone");
+        String col5=req.getParameter("address");
+        String col6=req.getParameter("sal");
         
         PreparedStatement preparedStatement;
          try{  
            
                 Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
-                 
-               
-                String sql = "INSERT INTO ums.faculty_tb (id, name, code_id, dept_id, email, contact) VALUES (null, ?, ?, ?, ?, ?);";
-                preparedStatement = con.prepareStatement(sql);
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
+                String sql ;
+                boolean ck=false;
+               if(req.getParameter("type").equalsIgnoreCase("insert")){
+                 sql= "INSERT INTO staff (id, name, dept_code, email, address, gender, sal) VALUES (null, ?, ?, ?, ?, ?, ?);";
+               }else{
+                   sql= "UPDATE staff SET name = ?,dept_code = ?,email = ?,address = ?,gender = ?,sal =? WHERE id=?;";
+                   ck=true;
+               }
+               preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setString(1, col1);
-                preparedStatement.setString(2, col2);
-                preparedStatement.setInt(3, col3);
-                preparedStatement.setString(4, col4);
-                preparedStatement.setString(5, col5);
+                preparedStatement.setInt(2, col3);
+                preparedStatement.setString(3, col4);
+                preparedStatement.setString(4, col5);
+                preparedStatement.setString(5, col2);
+                preparedStatement.setString(6, col6);
+                if(ck)
+                preparedStatement.setInt(7, Integer.parseInt(req.getParameter("id")));
                 if(preparedStatement.executeUpdate()!=-1){
                     
                     

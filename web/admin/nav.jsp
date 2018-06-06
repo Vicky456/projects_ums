@@ -55,10 +55,73 @@
                   </a>
                 </li>
                 <li>
+                    <a href="add_fact.jsp">
+                    <span class="nav-text">Add</span>
+                  </a>
+                </li>
+                <li>
                     <a href="fact_update.jsp">
                     <span class="nav-text">Update</span>
                   </a>
                 </li>
+                
+               
+                
+              </ul>
+            </li>
+            
+            <li class="nav_exp">
+              <a>
+                <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                <span class="nav-label"><!--<b class="label rounded label-sm primary">5</b>--></span>
+                <span class="nav-icon"><i class="material-icons">assignment_turned_in</i></span>
+                <span class="nav-text">Staff Assign</span>
+              </a>
+              <ul class="nav-sub">
+                <li>
+                    <a href="mapping_list.jsp">
+                    <span class="nav-text">Mapping</span>
+                  </a>
+                </li>
+                <li>
+                    <a href="add_mapping.jsp">
+                    <span class="nav-text">Add</span>
+                  </a>
+                </li>
+                <li>
+                    <a href="mapping_update.jsp">
+                    <span class="nav-text">Update</span>
+                  </a>
+                </li>
+                
+               
+                
+              </ul>
+            </li>
+            <li class="nav_exp">
+              <a>
+                <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                <span class="nav-label"><!--<b class="label rounded label-sm primary">5</b>--></span>
+                <span class="nav-icon"><i class="material-icons">account_balance</i></span>
+                <span class="nav-text">Department</span>
+              </a>
+              <ul class="nav-sub">
+                <li>
+                    <a href="dept_list.jsp">
+                    <span class="nav-text">View</span>
+                  </a>
+                </li>
+                <li>
+                    <a href="add_dept.jsp">
+                    <span class="nav-text">Add</span>
+                  </a>
+                </li>
+                <li>
+                    <a href="dept_update.jsp">
+                    <span class="nav-text">Update</span>
+                  </a>
+                </li>
+                
                
                 
               </ul>

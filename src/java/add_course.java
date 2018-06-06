@@ -29,25 +29,29 @@ public class add_course extends HttpServlet {
         PrintWriter out=resp.getWriter();
         
         String col1=req.getParameter("name");
-        String col2=req.getParameter("code_sub");
-        int col3=Integer.parseInt(req.getParameter("year"));
-        int col4=Integer.parseInt(req.getParameter("batch"));
+        String col1_1=req.getParameter("credits");
+        int col2=Integer.parseInt(req.getParameter("dept"));
+        int col3=Integer.parseInt(req.getParameter("sem"));
+        String col4=req.getParameter("batch");
         String col5=req.getParameter("desc_");
+        int col6=Integer.parseInt(req.getParameter("amount"));
         
         PreparedStatement preparedStatement;
          try{  
            
                 Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
                  
                
-                String sql = "INSERT INTO ums.course_tb(id, name, code, year, batch, desc_) VALUES (null, ?, ?, ?, ?, ?);";
+                String sql = "INSERT INTO course (course_code, name, creadit, desc_, sem, batch, dept_code, amount) VALUES (null,?,?,?,?,?,?,?);";
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setString(1, col1);
-                preparedStatement.setString(2, col2);
-                preparedStatement.setInt(3, col3);
-                preparedStatement.setInt(4, col4);
-                preparedStatement.setString(5, col5);
+                preparedStatement.setString(2, col1_1);
+                preparedStatement.setString(3, col5);
+                preparedStatement.setInt(4, col3);
+                preparedStatement.setString(5, col4);
+                preparedStatement.setInt(6, col2);
+                preparedStatement.setInt(7, col6);
                 if(preparedStatement.executeUpdate()!=-1){
                     
                     

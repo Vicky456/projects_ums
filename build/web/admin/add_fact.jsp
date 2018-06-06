@@ -20,7 +20,7 @@
  <div class="padding">
      
  <%
-     String type=request.getParameter("type");
+     String type=request.getParameter("type")!=null?request.getParameter("type"):"somthing";
      
      //out.print(type);
      if(type.equals("del")){
@@ -29,11 +29,11 @@
                 PreparedStatement preparedStatement;
                 String id=request.getParameter("id");
                 Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
                 
                 
                  
-              String sql = "DELETE FROM faculty_tb WHERE id=?;";
+              String sql = "DELETE FROM staff WHERE id=?;";
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setInt(1, Integer.parseInt(id));
                 if(preparedStatement.executeUpdate()!=-1){
@@ -55,9 +55,9 @@
            
           String id=request.getParameter("id");
                 Class.forName("com.mysql.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ums","root","");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
                 Statement stmt=con.createStatement();  
-                ResultSet rs=stmt.executeQuery("select * from faculty_tb where id='"+id+"'");  
+                ResultSet rs=stmt.executeQuery("select * from staff where id='"+id+"'");  
                 
                  
                 
@@ -74,36 +74,68 @@
           </div>
           <div class="box-body">
             <p class="text-muted">Please fill the information to continue</p>
-            <input type="hidden" value="<%= rs.getString(1)%>" name="id">
+            
             <div class="form-group">
+                <input type="hidden" name="type" value="update"/>
+                <input type="hidden" name="id" value="<%= rs.getString(1)%>"/>
               <label>Name</label>
               <input type="text" class="form-control" required="" name="name" value="<%= rs.getString(2)%>">                        
             </div>
             
             <div class="row m-b">
-              <div class="col-sm-6">
-                <label>Faculty ID</label>
-                <input type="hidden" name="code_sub"   value="<%= rs.getString(3)%>" />
-                <input type="text" class="form-control" disabled="" required=""   value="<%= rs.getString(3)%>">   
-              </div>
-              <div class="col-sm-4">
+              
+              <div class="col-sm-7">
                 <label>Department</label>
-                <select class="form-control" name="dept">
-                    <option value="<%= rs.getString(4)%>"><%= rs.getString(4)%></option>
-                    <option value="1">CSE</option>
-                    <option value="2">IT</option>
-                </select>      
+               <select class="form-control" name="dept">
+                    <option></option>
+                    
+                    <%  try{  
+           
+                int selc=rs.getInt("dept_code");
+                Connection con1=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
+                Statement stmt1=con1.createStatement();  
+                ResultSet rs1=stmt1.executeQuery("select * from dept;");  
+                
+                 
+                int i=1;
+                while(rs1.next())
+                { 
+                    if(i==selc){
+                    %>
+                    <option selected="" value="<%= rs1.getString(1)%>"><%= rs1.getString(2)%></option>
+                    <% }else{
+                    %>
+                     <option value="<%= rs1.getString(1)%>"><%= rs1.getString(2)%></option>
+                <%
+                    }
+                i++;
+                }con1.close();}catch(Exception e){out.println(e);}  %>
+                </select>       
               </div> 
               
             </div>
             <div class="form-group">
-              <label>Email</label>
-              <input type="email" class="form-control" required="" name="email" value="<%= rs.getString(5)%>">
+              <label>Gender</label>
+              <div class="radio"><label><input type="radio" value="male" <%= rs.getString(6).equalsIgnoreCase("male")?"checked=''":""%>   name="gender"> Male</label>   <label>  <input type="radio" value="female" <%= rs.getString(6).equalsIgnoreCase("female")?"checked=''":""%>  name="gender"> Female</label></div>
+              
+              
             </div>
             <div class="form-group">
-              <label>Contact</label>
-              <input type="number" class="form-control" placeholder="+XX XXXXX XXXXX" required="" name="phone" value="<%= rs.getString(6)%>">
+              <label>Email</label>
+              <input type="email" class="form-control" required="" name="email" value="<%= rs.getString(4)%>">
             </div>
+            
+            <div class="form-group">
+              <label>Address</label>
+              <textarea class="form-control" required name="address"><%= rs.getString(5)%></textarea>
+            </div>
+            <div class="row m-b">
+            <div class="form-group col-sm-4">
+              <label>Sal</label>
+              <input type="number" class="form-control" required="" name="sal" value="<%= rs.getString(7)%>">
+            </div>
+            </div>
+            
             <div class="checkbox">
               <label class="ui-check">
                 <input type="checkbox" name="check" checked="" required="true" data-parsley-multiple="check" data-parsley-id="15"><i></i> I agree to the <a href="#" class="text-info">Terms of Service</a>
@@ -145,34 +177,57 @@
             <p class="text-muted">Please fill the information to continue</p>
             
             <div class="form-group">
+                <input type="hidden" name="type" value="insert"/>
               <label>Name</label>
               <input type="text" class="form-control" required="" name="name" >                        
             </div>
             
             <div class="row m-b">
-              <div class="col-sm-6">
-                <label>Faculty ID</label>
-                <input type="hidden" name="code_sub"   value="CSE004" />
-                <input type="text" class="form-control" disabled="" required=""   value="CSE004">   
-              </div>
-              <div class="col-sm-4">
+              
+              <div class="col-sm-7">
                 <label>Department</label>
-                <select class="form-control" name="dept">
+               <select class="form-control" name="dept">
                     <option></option>
-                    <option value="1">CSE</option>
-                    <option value="2">IT</option>
-                </select>      
+                    
+                    <%  try{  
+           
+                Class.forName("com.mysql.jdbc.Driver");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/school","root","");  
+                Statement stmt=con.createStatement();  
+                ResultSet rs=stmt.executeQuery("select * from dept;");  
+                
+                 
+                
+                while(rs.next())
+                { %>
+                <option value="<%= rs.getString(1)%>"><%= rs.getString(2)%></option>
+                    <% }con.close();}catch(Exception e){out.println(e);}  %>
+                </select>       
               </div> 
+              
+            </div>
+            <div class="form-group">
+              <label>Gender</label>
+              <div class="radio"><label><input type="radio" value="male" checked="checked" name="gender"> Male</label>   <label>  <input type="radio" value="female" checked="checked" name="gender"> Female</label></div>
+              
               
             </div>
             <div class="form-group">
               <label>Email</label>
               <input type="email" class="form-control" required="" name="email">
             </div>
+            
             <div class="form-group">
-              <label>Contact</label>
-              <input type="number" class="form-control" placeholder="+XX XXXXX XXXXX" required="" name="phone">
+              <label>Address</label>
+              <textarea class="form-control" required name="address"></textarea>
             </div>
+            <div class="row m-b">
+            <div class="form-group col-sm-4">
+              <label>Sal</label>
+              <input type="number" class="form-control" required="" name="sal">
+            </div>
+            </div>
+            
             <div class="checkbox">
               <label class="ui-check">
                 <input type="checkbox" name="check" checked="" required="true" data-parsley-multiple="check" data-parsley-id="15"><i></i> I agree to the <a href="#" class="text-info">Terms of Service</a>
